@@ -1,14 +1,15 @@
 from photos.models import Photo
-from myapi.serializers import PhotoSerializer
+from photos.api.serializers import PhotoSerializer
 from rest_framework import generics
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django_filters import rest_framework as filters
-from api.filters import PhotoFilter
+from photos.api.filters import PhotoFilter
 from drf_backend_service import settings
 import os
 
 
 class PhotoList(generics.ListCreateAPIView):
+    parser_classes = (MultiPartParser,FormParser,JSONParser)
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
     filter_backends = (filters.DjangoFilterBackend,)
