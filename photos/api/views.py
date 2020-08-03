@@ -32,8 +32,9 @@ class PhotoDetail(generics.RetrieveUpdateDestroyAPIView):
     def perform_destroy(self, instance):
         if instance.image:
             image_url = instance.image.url
-            file_path = os.path.join(settings.MEDIA_ROOT,image_url.replace(settings.MEDIA_URL,""))
-            
+            image_key = image_url.split('/')[1]
+            file_path = os.path.join(settings.ASSET_ROOT, image_key)
+            print (file_path)
             if os.path.isfile(file_path):
                 os.remove(file_path)
         

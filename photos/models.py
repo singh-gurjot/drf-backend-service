@@ -9,7 +9,7 @@ STATUS_CHOICES = (
 class Photo(models.Model):
     publisher = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='./')
+    image = models.ImageField(upload_to='./assets')
     captions = models.CharField(max_length=255,null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
