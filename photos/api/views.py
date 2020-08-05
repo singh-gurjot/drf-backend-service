@@ -23,6 +23,7 @@ class PhotoList(generics.ListCreateAPIView):
 
 
 class PhotoDetail(generics.RetrieveUpdateDestroyAPIView):
+    parser_classes = (MultiPartParser,FormParser,JSONParser)
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
 
