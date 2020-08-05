@@ -5,8 +5,8 @@ from django.conf.urls.static import static
 from drf_backend_service import settings
 
 urlpatterns = [
-    path('api/v1/', views.PhotoList.as_view()),
-    path('api/v1/<int:pk>/', views.PhotoDetail.as_view())
+    path('v1/photos/', views.PhotoList.as_view()),
+    path('/v1/photos/<int:pk>/', views.PhotoDetail.as_view())
 ]
 
 urlpatterns += static(settings.ASSET_URL, document_root=settings.ASSET_ROOT)
