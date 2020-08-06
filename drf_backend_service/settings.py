@@ -112,7 +112,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PERMISSION_CLASSES":
         ['rest_framework.permissions.IsAuthenticated' ],
-    "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser", ],
+    "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser", "rest_framework.parsers.FormParser", "rest_framework.parsers.MultiPartParser"],
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
 }
 
