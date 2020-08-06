@@ -110,6 +110,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication'
         
     ],
+     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     "DEFAULT_PERMISSION_CLASSES":
         ['rest_framework.permissions.IsAuthenticated' ],
     "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser", "rest_framework.parsers.FormParser", "rest_framework.parsers.MultiPartParser"],

@@ -18,6 +18,6 @@ from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('photos.api.urls')),
+    path('photos/', include('photos.api.urls')),
     path('auth/jwt/', include('auth_jwt.urls'), name='jwtauth'),
 ]
