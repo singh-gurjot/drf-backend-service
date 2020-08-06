@@ -1,17 +1,14 @@
 from photos.models import Photo
 from photos.api.serializers import PhotoSerializer
 from rest_framework import generics
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.exceptions import PermissionDenied
 from django_filters import rest_framework as filters
 from photos.api.filters import PhotoFilter
 from drf_backend_service import settings
 from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError, ParseError
 import json
 import os
-from datetime import datetime
 from django.utils import timezone
 
 class PhotoList(generics.ListCreateAPIView):
@@ -25,6 +22,7 @@ class PhotoList(generics.ListCreateAPIView):
         user = self.request.user
         photos_type = self.request.query_params.get('photos_type', None)
         username = self.request.query_params.get('username', None)
+
         if username:
             return queryset.filter(publisher__username=username)
 
@@ -39,7 +37,10 @@ class PhotoList(generics.ListCreateAPIView):
         
 
     def perform_create(self, serializer):
-        serializer.save(publisher=self.request.user)
+        status = self.request.data.get('status', 'live')
+        published_at = timezone.now() if status == 'live' else None
+
+        serializer.save(publisher=self.request.user, published_at=published_at)
 
 
 class PhotoDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -49,8 +50,6 @@ class PhotoDetail(generics.RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         instance = self.get_object()
         published_at = None
-        print (instance.__dict__)
-        print(instance.publisher, self.request.user)
 
         if instance.publisher != self.request.user:
             raise PermissionDenied()
